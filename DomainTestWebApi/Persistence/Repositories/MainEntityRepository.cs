@@ -1,16 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DomainTestWebApi.Models;
 using DomainTestWebApi.Persistence.Contexts;
-using DomainTestWebApi.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace DomainTestWebApi.Repositories
+namespace DomainTestWebApi.Persistence.Repositories
 {
     public class MainEntityRepository : BaseRepository, IMainEntityRepository
     {
-  
-
+        
         public MainEntityRepository(DomainDbContext context) : base(context)
         {
         }
@@ -18,6 +17,30 @@ namespace DomainTestWebApi.Repositories
         public async Task<IEnumerable<MainEntity>> ListAsync()
         {
             return await _context.MainEntities.ToListAsync();
+        }
+
+        public async Task<MainEntity> GetByIdAsync(Guid id)
+        {
+            return await _context.MainEntities.FindAsync(id);
+        }
+
+        public async Task AddAsync(MainEntity mainEntity)
+        {
+            await _context.MainEntities.AddAsync(mainEntity);
+            await _context.SaveChangesAsync();
+        }
+
+        public void Update(MainEntity mainEntity)
+        {
+            _context.MainEntities.Update(mainEntity);
+            _context.SaveChanges();
+        }
+
+        public void Delete(MainEntity mainEntity)
+        {
+            _context.MainEntities.Remove(mainEntity);
+            _context.SaveChanges();
+
         }
     }
 }
