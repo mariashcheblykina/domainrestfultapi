@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using DomainTestWebApi.Models;
-using DomainTestWebApi.Persistence.Repositories;
 using DomainTestWebApi.Resources;
 using DomainTestWebApi.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,13 +14,11 @@ namespace DomainTestWebApi.Controllers
     [Route("api/[controller]")]
     public class MainEntityController : ControllerBase
     {
-        private readonly ILogger<MainEntityController> _logger;
         private readonly IMapper _mapper;
         private readonly IMainEntityService _mainEntityService;
         
         public MainEntityController(ILogger<MainEntityController> logger, IMainEntityService mainEntityService, IMapper mapper)
         {
-            _logger = logger;
             _mainEntityService = mainEntityService;
             _mapper = mapper;
         }

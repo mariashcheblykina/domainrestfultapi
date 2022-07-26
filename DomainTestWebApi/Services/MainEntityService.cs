@@ -34,12 +34,15 @@ namespace DomainTestWebApi.Services
 
         public async Task<MainEntityResponse> SaveAsync(MainEntity mainEntity)
         {
-            //todo: add some validation service
+            if (_mainEntityRepository.IsUniqueProperty(mainEntity.FirstMainProperty))
+            {
+                return new MainEntityResponse($"[MainEntity] MainEntity with such property {mainEntity.FirstMainProperty} is already exists");
+            }
+            
             try
             {
                 await _mainEntityRepository.AddAsync(mainEntity);
                 return new MainEntityResponse(mainEntity);
-
             }
             catch (Exception e)
             {
@@ -49,15 +52,16 @@ namespace DomainTestWebApi.Services
 
         public async Task<MainEntityResponse> UpdateAsync(Guid id, MainEntity mainEntity)
         {
-            //some validation here
-            //check for existing main entity
-            //check for unique 
-            //todo: add some validation service
             var existingMainEntity = await _mainEntityRepository.GetByIdAsync(id);
 
             if (existingMainEntity == null)
             {
                 return new MainEntityResponse("[MainEntity] MainEntity doesn't found");
+            }
+            
+            if (_mainEntityRepository.IsUniqueProperty(mainEntity.FirstMainProperty))
+            {
+                return new MainEntityResponse($"[MainEntity] MainEntity with such property {mainEntity.FirstMainProperty} is already exists");
             }
             
             try
@@ -73,7 +77,7 @@ namespace DomainTestWebApi.Services
 
         public async Task<MainEntityResponse> DeleteAsync(Guid id)
         {
-            //todo: add some validation service
+            //todo: 
             var existingMainEntity = await _mainEntityRepository.GetByIdAsync(id);
 
             if (existingMainEntity == null)

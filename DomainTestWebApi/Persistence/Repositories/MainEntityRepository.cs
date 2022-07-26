@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DomainTestWebApi.Models;
 using DomainTestWebApi.Persistence.Contexts;
@@ -40,7 +41,11 @@ namespace DomainTestWebApi.Persistence.Repositories
         {
             _context.MainEntities.Remove(mainEntity);
             _context.SaveChanges();
+        }
 
+        public bool IsUniqueProperty(string property)
+        {
+            return _context.MainEntities.Any(e => e.FirstMainProperty.Equals(property));
         }
     }
 }

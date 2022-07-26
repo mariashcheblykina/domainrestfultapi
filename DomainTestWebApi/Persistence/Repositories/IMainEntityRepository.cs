@@ -12,5 +12,6 @@ namespace DomainTestWebApi.Persistence.Repositories
         Task AddAsync(MainEntity mainEntity);
         void Update(MainEntity mainEntity);
         void Delete(MainEntity mainEntity);
+        bool IsUniqueProperty(string property);
     }
 }
