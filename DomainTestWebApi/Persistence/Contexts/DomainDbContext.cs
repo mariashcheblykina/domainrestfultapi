@@ -23,6 +23,7 @@ namespace DomainTestWebApi.Persistence.Contexts
             builder.Entity<MainEntity>().Property(p => p.SecondMainProperty);
             builder.Entity<MainEntity>().Property(p => p.DateTimeMainProperty);
 
+            //some data for test
             builder.Entity<MainEntity>().HasData
             (
                 new MainEntity
